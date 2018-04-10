@@ -5,20 +5,38 @@ last_name varchar2(255),
 department_id integer,
 job_id varchar2(255)
 )
-
-CREATE VIEW clerk AS
+-----------------CREAR VISTA
+CREATE   OR REPLACE VIEW clerk AS
 SELECT id,last_name,department_id,job_id FROM
 EMPLOYEES
 WHERE job_id='PU_CLERK'
 OR job_id='SJ_CLERK'
 OR JOB_id='ST_CLERK'
+--WITH CHECK OPTION; HACE QUE NO SE ACTUALICE O INSERTE ALGO QUE ÉSTE FUERA DEL WHERE SOLO SE ACTUALIZA A JS_CLERK,ST_CLERK,PU_CLERK
+
+/* CON ERROR
+UPDATE CLERK SET JOB_ID='DEVELOPER' 
+WHERE department_id<=153 
+--- LA SOLUCIÓN
+UPDATE CLERK SET JOB_ID='ST_CLERK'
+WHERE department_id<=153
+*/
 
 
+---------- SE PUEDE ESCOGER COLUMNAS DE LA VISTA ESPECIFICA
+SELECT last_name FROM CLERK;
+
+------------ SE PUEDE HACER RELACIONES CON OTRAS TABLAS
+SELECT * FROM DEPARMENTS INNER JOIN CLERK
+ON DEPARMENTS.ID = CLERK.DEPARMENT_ID
+-------------ACTUALIZAR TODO LOS CLERK QUE DEPARMENT_ID<150Y SEA EL NUEVO DEVELOPER
 
 
+UPDATE CLERK SET JOB_ID='DEVELOPER'
+WHERE department_id<=150
 
 
-
+--INSERTS
 INSERT INTO EMPLOYEES (id,first_name,last_name,department_id,job_id) VALUES (1,'Wyatt','Mitchell',100,'ST_CLERK');
 INSERT INTO EMPLOYEES (id,first_name,last_name,department_id,job_id) VALUES (2,'Blaine','Hewitt',101,'SH_CLERK');
 INSERT INTO EMPLOYEES (id,first_name,last_name,department_id,job_id) VALUES (3,'Naida','Beasley',102,'ST_CLERK');

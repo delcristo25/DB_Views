@@ -4,5 +4,5 @@
 	1.DISTIC
 	2.Función
 	3.GROUP BY,ORDER BY,MODEL,CONNECT BY, START WITH.
-
+4. Se utiliza como una tabla normal y se puede hacer INNER JOINS
 	
